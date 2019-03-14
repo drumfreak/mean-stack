@@ -1,4 +1,4 @@
-## Welcome to the mean stack - modified for weather and user profiles
+## Welcome to the MEAN Stack
 
 The mean stack is intended to provide a simple and fun starting point for cloud native fullstack javascript applications.   
 MEAN is a set of Open Source components that together, provide an end-to-end framework for building dynamic web applications; starting from the top (code running in the browser) to the bottom (database). The stack is made up of:
@@ -16,16 +16,16 @@ MEAN is a set of Open Source components that together, provide an end-to-end fra
 
 ### Installation 
 ``` 
-git clone https://github.com/drumfreak/meanio-weather
-cd meanio-weather
+git clone https://github.com/drumfreak/meanio-stack
+cd meanio-stack
 cp .env.example .env
 npm install
 npm start (for development)
 ```
 ### Docker based 
 ``` 
-git clone https://github.com/drumfreak/meanio-weather
-cd meanio-weather
+git clone https://github.com/drumfreak/meanio-stack
+cd meanio-stack
 cp .env.example .env
 docker-compose up -d
 ```
@@ -33,4 +33,4 @@ docker-compose up -d
 - The MEAN name was coined by Valeri Karpov.
 - Initial concept and development was done by Amos Haviv and sponsered by Linnovate.
 - Inspired by the great work of Madhusudhan Srinivasa.
-- Modified by Eric Rosebrock http://github.com/drumfreak for Weather / User Profiles
+- Modified by Eric Rosebrock http://github.com/drumfreak for Weather / User Profiles examples
