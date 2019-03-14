@@ -17,7 +17,7 @@ MEAN is a set of Open Source components that together, provide an end-to-end fra
 ### Installation 
 ``` 
 git clone https://github.com/drumfreak/meanio-stack
-cd meanio-stack
+cd mean-stack
 cp .env.example .env
 npm install
 npm start (for development)
@@ -25,7 +25,7 @@ npm start (for development)
 ### Docker based 
 ``` 
 git clone https://github.com/drumfreak/meanio-stack
-cd meanio-stack
+cd mean-stack
 cp .env.example .env
 docker-compose up -d
 ```
