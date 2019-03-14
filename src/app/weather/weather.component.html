@@ -1,0 +1,99 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarColor02">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/']">Home</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" [routerLink]="['/weather']">Weather <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/radar']">Radar</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/about']">About</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+      <input class="form-control mr-sm-2" type="text"
+             name="weatherLocation" [(ngModel)]="model.weatherLocation" #weatherLocation="ngModel"
+              placeholder="City or Zip Code">
+      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
+
+<div *ngIf="loading" class="mainContainer">
+  <div class="jumbotron">
+    <div class="text-center">
+      <div class="spinner-grow" style="width: 3rem; height: 3rem;" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <div class="spinner-grow" style="width: 3rem; height: 3rem;" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <div class="spinner-grow" style="width: 3rem; height: 3rem;" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+
+      <div class="text-center">Loading Weather...</div>
+
+    </div>
+  </div>
+</div>
+
+<div class="mainContainer" *ngIf="weather && weather.length > 0 && !loading">
+  <div class="jumbotron">
+    <div class="text-center">
+      <h2>Weather for <i>{{wLocation}}</i></h2>
+    </div>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Day</th>
+          <th scope="col">Date</th>
+          <th scope="col">Condition</th>
+          <th scope="col">Low / High</th>
+          <th scope="col">Humidity</th>
+          <th scope="col">Air Pressure</th>
+          <th scope="col">Wind</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let w of weather" class="table-light">
+          <th scope="row">{{w.applicable_date | date:'EE'}}</th>
+          <th scope="row">{{w.applicable_date | date:'MM/dd'}}</th>
+          <td>{{w.weather_state_name}}</td>
+          <td>{{(w.min_temp  * 9.0 / 5.0 + 32) | number : '1.0-0'}} / {{(w.max_temp  * 9.0 / 5.0 + 32) | number : '1.0-0'}} &#8457;</td>
+          <td>{{w.humidity | number:'1.0-0'}}%</td>
+          <td>{{w.air_pressure | number:'1.0-2'}} mb</td>
+          <td>{{w.wind_speed | number:'1.0-0'}} {{w.wind_direction_compass}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="mainContainer" *ngIf="weather === 'undefined' || weather.length === 0 && !loading">
+  <div class="jumbotron">
+    <p>No weather data for that location.</p>
+  </div>
+</div>
+
+<p>&nbsp;</p>
+
+<div *ngIf="!loading" class="mainContainer">
+  <div class="jumbotron">
+    <h1 class="display-3">MEAN Weather</h1>
+    <p class="lead">This is a simple demo of using a Node.js api to fetch weather by zipcode or city.</p>
+    <hr class="my-4">
+    <p>It utilizes the <a target="_blank" href="https://www.metaweather.com">MetaWeather.com</a> free API.</p>
+    <p class="lead">
+      <a class="btn btn-primary btn-lg" href="https://www.metaweather.com" target="_blank" role="button">Learn more</a>
+    </p>
+  </div>
+</div>

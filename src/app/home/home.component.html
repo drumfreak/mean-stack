@@ -1,0 +1,40 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarColor02">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" [routerLink]="['/']">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/weather']">Weather</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/radar']">Radar</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/about']">About</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div *ngIf="!loading" class="mainContainer">
+  <div class="jumbotron">
+    <h1 class="display-3">MEAN Stack</h1>
+    <p class="lead">Welcome to the MEAN Stack. This is a full stack web development platform that uses:</p>
+    <ul>
+      <li><b>M</b>ongo Database</li>
+      <li><b>E</b>xpress</li>
+      <li><b>A</b>ngular 7</li>
+      <li><b>N</b>ode.js</li>
+    </ul>
+    <p>The purpose of this project is to get you up and running with a MEAN stack effortlessly. It was originally inspired by <a href="http://mean.io" target="_blank">Mean.io</a> and has been extended using real world examples.</p>
+
+    <hr class="my-4">
+    <p class="lead">
+      <a class="btn btn-primary btn-lg" href="https://github.com/drumfreak/mean-weather"  role="button">View on Github</a>
+    </p>
+  </div>
+</div>
