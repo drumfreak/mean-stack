@@ -19,6 +19,7 @@ import { WeatherComponent } from './weather/weather.component';
 import { UserprofileComponent } from './userprofile/userprofile.component';
 import { AboutComponent } from './about/about.component';
 import { RadarComponent } from './radar/radar.component';
+import { ContactComponent } from './contact/contact.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { RadarComponent } from './radar/radar.component';
     WeatherComponent,
     UserprofileComponent,
     AboutComponent,
-    RadarComponent
+    RadarComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,

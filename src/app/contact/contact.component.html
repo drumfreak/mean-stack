@@ -1,0 +1,87 @@
+<div *ngIf="!loading && !submitted" class="mainContainer">
+  <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+    <fieldset>
+      <legend>Contact Us!</legend>
+      <div class="form-group">
+        <label for="name">Your Name</label>
+        <input type="text" class="form-control" id="name" name="name" [(ngModel)]="model.name" #name="ngModel" aria-describedby="emaiHelplName" placeholder="Your name" [ngClass]="{ 'is-invalid': f.submitted && name.invalid }" required>
+        <small id="emaiHelplName" class="form-text text-muted">We'll never share your details with anyone else.</small>
+
+        <div *ngIf="f.submitted && name.invalid" class="invalid-feedback">
+          <div *ngIf="name.errors.required"> Name is required</div>
+        </div>
+
+      </div>
+      <div class="form-group">
+        <label for="emailAddress">Email address</label>
+        <input type="email" class="form-control" id="emailAddress" name="emailAddress" [(ngModel)]="model.emailAddress" #emailAddress="ngModel" aria-describedby="emailHelp" placeholder="Your e-mail" [ngClass]="{ 'is-invalid': f.submitted && emailAddress.invalid }" required email>
+        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+
+        <div *ngIf="f.submitted && emailAddress.invalid" class="invalid-feedback">
+          <div *ngIf="emailAddress.errors.required">Email address is required</div>
+          <div *ngIf="emailAddress.errors.email">Email must be a valid email address</div>
+        </div>
+
+      </div>
+      <div class="form-group">
+        <label for="subject">Subject</label>
+        <input type="text" class="form-control" id="subject" name="subject" [(ngModel)]="model.subject" #subject="ngModel" placeholder="Your subject" [ngClass]="{ 'is-invalid': f.submitted && subject.invalid }" required>
+
+        <div *ngIf="f.submitted && subject.invalid" class="invalid-feedback">
+          <div *ngIf="subject.errors.required">Subject is required</div>
+        </div>
+
+      </div>
+      <div class="form-group">
+        <label for="emailBody">Your Message:</label>
+        <textarea class="form-control" id="emailBody" name="emailBody" [(ngModel)]="model.emailBody" #emailBody="ngModel"  rows="3" [ngClass]="{ 'is-invalid': f.submitted && emailBody.invalid }" required></textarea>
+      </div>
+
+      <div *ngIf="f.submitted && emailBody.invalid" class="invalid-feedback">
+        <div *ngIf="emailBody.errors.required">Message is required</div>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </fieldset>
+  </form>
+</div>
+
+
+<div *ngIf="loading" class="mainContainer">
+  <div class="jumbotron">
+    <div class="text-center">
+      <div class="spinner-grow" style="width: 3rem; height: 3rem;" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <div class="spinner-grow" style="width: 3rem; height: 3rem;" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <div class="spinner-grow" style="width: 3rem; height: 3rem;" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <div class="text-center">Sending Email...</div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!loading && submitted" class="mainContainer">
+  <div class="jumbotron">
+    <div class="text-center">
+      <div class="alert alert-dismissible alert-primary">
+        <h2>Thank you {{sentEmail.name}}!</h2>
+        <br />
+        <h5>Your message was sent!</h5>
+        <p><strong>Confirmation ID: <em>{{sentEmail._id.toString()}}</em></strong></p>
+      </div>
+    </div>
+
+    <p><strong>Date:</strong> {{sentEmail.createdAt}}</p>
+      <p><strong>Subject:</strong> {{sentEmail.subject}}</p>
+      <p><strong>Message:</strong> {{sentEmail.emailBody}}</p>
+
+      <button type="button" class="btn btn-primary btn-lg btn-block" (click)="resetForm()">Back</button>
+
+  </div>
+</div>
+
+

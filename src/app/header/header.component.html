@@ -11,7 +11,6 @@
         <button mat-menu-item *ngIf="user && user.isAdmin" [routerLink]="['/admin']">admin</button>
         <button mat-menu-item (click)="logout()">logout</button>
         <button mat-menu-item [routerLink]="['/userprofile']">Profile</button>
-
       </mat-menu>
     </div>
   </mat-toolbar>

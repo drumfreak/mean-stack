@@ -39,7 +39,18 @@ const config = {
   mongo: {
     host: envVars.MONGO_HOST,
     port: envVars.MONGO_PORT
+  },
+  mail: {
+    sendMailTo: envVars.MAILER_TO,
+    transportHost: envVars.MAILER_HOST,
+    transportSecure: envVars.MAILER_SECURE,
+    transportPort: envVars.MAILER_PORT,
+    transportUser: envVars.MAILER_USERNAME,
+    transportPassword: envVars.MAILER_PASSWORD
   }
+
+
+
 };
 
 module.exports = config;

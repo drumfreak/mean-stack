@@ -6,6 +6,7 @@ import { UserprofileComponent } from '../userprofile/userprofile.component';
 import { AboutComponent } from '../about/about.component';
 import { WeatherComponent } from '../weather/weather.component';
 import { RadarComponent } from '../radar/radar.component';
+import { ContactComponent } from '../contact/contact.component';
 
 const routes: Routes = [{
   path: '',
@@ -28,6 +29,9 @@ const routes: Routes = [{
 }, {
     path: 'userprofile',
     component: UserprofileComponent
+}, {
+    path: 'contact',
+    component: ContactComponent
   }
 ];
 
