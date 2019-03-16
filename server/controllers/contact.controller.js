@@ -51,5 +51,4 @@ async function submitContact(email, cb) {
       cb(await new Contact(contact).save());
     }
   });
-
 }
