@@ -1,0 +1,71 @@
+<div *ngIf="!loading && !submitted" class="mainContainer">
+    <div class="jumbotron">
+
+        <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" name="blogForm" novalidate>
+            <fieldset>
+                <legend>Add New Blog Entry!</legend>
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" class="form-control" id="title" name="title" [(ngModel)]="model.title"
+                           #title="ngModel" placeholder="Blog title"
+                           [ngClass]="{ 'is-invalid': f.submitted && title.invalid }" required>
+
+                    <div *ngIf="f.submitted && title.invalid" class="invalid-feedback">
+                        <div *ngIf="title.errors.required">Title is required</div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="caption">Caption:</label>
+                    <textarea class="form-control" id="caption" name="caption" [(ngModel)]="model.caption"
+                              #caption="ngModel" rows="3" [ngClass]="{ 'is-invalid': f.submitted && caption.invalid }"
+                              required></textarea>
+                </div>
+
+                <div *ngIf="f.submitted && caption.invalid" class="invalid-feedback">
+                    <div *ngIf="caption.errors.required">Caption is required</div>
+                </div>
+
+                <ckeditor name="body" [(ngModel)]="model.body" [editor]="Editor" data=""></ckeditor>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </fieldset>
+        </form>
+
+    </div>
+</div>
+
+
+<div *ngIf="loading" class="mainContainer">
+    <div class="jumbotron">
+        <div class="text-center">
+            <div class="spinner-grow" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+            <div class="text-center">Saving Blog...</div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="!loading && submitted" class="mainContainer">
+    <div class="jumbotron">
+        <div class="text-center">
+            <div class="alert alert-dismissible alert-primary">
+                <h2>Thank you!</h2>
+                <br/>
+                <h5>Your blog entry was created!</h5>
+            </div>
+        </div>
+
+        <p><strong>Date: {{newBlog.createdAt}}</strong></p>
+
+        <div><a href="/blog/create" [routerLink]="['/blog/create']">New Entry</a></div>
+
+    </div>
+</div>

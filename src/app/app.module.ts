@@ -11,6 +11,7 @@ import { AppComponent } from './app.component';
 import { AdminModule } from './admin/admin.module';
 import { AuthHeaderInterceptor } from './interceptors/header.interceptor';
 import { CatchErrorInterceptor } from './interceptors/http-error.interceptor';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { HeaderComponent } from './header/header.component';
@@ -20,6 +21,8 @@ import { UserprofileComponent } from './userprofile/userprofile.component';
 import { AboutComponent } from './about/about.component';
 import { RadarComponent } from './radar/radar.component';
 import { ContactComponent } from './contact/contact.component';
+import { BlogComponent } from './blog/blog.component';
+import { BlogCreateComponent } from './blog/blogCreate.component';
 
 
 @NgModule({
@@ -31,7 +34,9 @@ import { ContactComponent } from './contact/contact.component';
     UserprofileComponent,
     AboutComponent,
     RadarComponent,
-    ContactComponent
+    ContactComponent,
+    BlogComponent,
+    BlogCreateComponent
   ],
   imports: [
     BrowserModule,
@@ -42,6 +47,7 @@ import { ContactComponent } from './contact/contact.component';
     AuthModule,
     AdminModule,
     AppRoutingModule,
+    CKEditorModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
