@@ -7,7 +7,7 @@ import { BlogCreateComponent } from './blog-create/blogCreate.component';
 const blogRoutes: Routes = [
   { path: 'blog',  component: BlogComponent },
   { path: 'blog/create',  component: BlogCreateComponent },
-  { path: 'blog/:id', component: BlogViewComponent }
+  { path: 'blog/:id', component: BlogViewComponent },
   { path: 'blog/:id/delete', component: BlogCreateComponent }
 
 ];
