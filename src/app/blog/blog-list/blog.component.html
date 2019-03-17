@@ -1,0 +1,27 @@
+<div class="mainContent" style="margin-left:auto;margin-right:auto">
+
+    <div class="jumbotron">
+        <div>
+            <h1>Blog</h1>
+        </div>
+
+        <div class="col-md-12 text-right">
+            <a href="" [routerLink]="['/blog/create']">New Article</a>
+        </div>
+
+        <div class="card border-info mb-3" *ngFor="let blog of blogs$ | async">
+            <div class="card-header">
+                <h4 class="card-title"><a [routerLink]="['/blog', blog._id]">{{blog.title}}</a></h4>
+            </div>
+            <div class="card-body">
+                <p class="card-text">by: <strong><a [routerLink]="['/blog', blog._id]">{{blog.user.fullname}}</a></strong> on <strong><a [routerLink]="['/blog', blog._id]">{{blog.createdAt | date:'EEEE LLLL dd, yyyy  h:mm a'}}</a></strong></p>
+                <p class="card-text">
+                    {{blog.caption}}</p>
+                <div class="float-right">
+                    <a [routerLink]="['/blog', blog._id]">Read More...</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<router-outlet></router-outlet>

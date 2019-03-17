@@ -1,6 +1,9 @@
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="#" [routerLink]="['/']">Home</a></li>
+    <li class="breadcrumb-item active"><a href="#" [routerLink]="['/blog']">Blog</a></li>
+</ol>
 <div *ngIf="!loading && !submitted" class="mainContainer">
     <div class="jumbotron">
-
         <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" name="blogForm" novalidate>
             <fieldset>
                 <legend>Add New Blog Entry!</legend>
@@ -63,6 +66,7 @@
             </div>
         </div>
 
+        <h4 class="card-title"><a [routerLink]="['/blog', newBlog._id]">{{newBlog.title}}</a></h4>
         <p><strong>Date: {{newBlog.createdAt}}</strong></p>
 
         <div><a href="/blog/create" [routerLink]="['/blog/create']">New Entry</a></div>

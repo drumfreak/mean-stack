@@ -1,0 +1,36 @@
+<div class="mainContent" style="margin-left:auto;margin-right:auto" *ngIf="blog.title">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#" [routerLink]="['/']">Home</a></li>
+        <li class="breadcrumb-item active"><a href="#" [routerLink]="['/blog']">Blog</a></li>
+    </ol>
+    <div class="jumbotron">
+        <div class="col-md-12 text-right">
+            [ <a href="" [routerLink]="['/blog']">Index</a> |
+            <a href="" [routerLink]="['/blog/create']">New Article</a> |
+            <a href="/blog/{{blog._id}}/edit">Edit</a> |
+            <a href="/blog/{{blog._id}}/delete">Delete</a> ]
+        </div>
+
+        <div>
+            <h1>{{blog.title}}</h1>
+        </div>
+
+        <div class="card border-info mb-3">
+            <div class="card-body">
+                <p class="card-text">by: <strong>{{blog.user.fullname}}</strong> on <strong>{{blog.createdAt | date:'EEEE LLLL dd, yyyy  h:mm a'}}</strong></p>
+                <div [innerHTML]="blog.body"></div>
+            </div>
+
+            <div class="card-footer text-muted">
+                <div class="float-left" *ngIf="blog.prevBlog._id">
+                    <a [routerLink]="['/blog', blog.prevBlog._id]">&lt;&lt; {{blog.prevBlog.title}}</a>
+                </div>
+                <div class="float-right" *ngIf="blog.nextBlog._id">
+                    <a [routerLink]="['/blog', blog.nextBlog._id]" routerLinkActive="active">{{blog.nextBlog.title}} &gt;&gt;</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<router-outlet></router-outlet>
+

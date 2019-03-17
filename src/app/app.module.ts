@@ -11,9 +11,10 @@ import { AppComponent } from './app.component';
 import { AdminModule } from './admin/admin.module';
 import { AuthHeaderInterceptor } from './interceptors/header.interceptor';
 import { CatchErrorInterceptor } from './interceptors/http-error.interceptor';
-import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 import { AppRoutingModule } from './app-routing/app-routing.module';
+import { BlogModule } from './blog/blog.module';
+
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { WeatherComponent } from './weather/weather.component';
@@ -21,8 +22,7 @@ import { UserprofileComponent } from './userprofile/userprofile.component';
 import { AboutComponent } from './about/about.component';
 import { RadarComponent } from './radar/radar.component';
 import { ContactComponent } from './contact/contact.component';
-import { BlogComponent } from './blog/blog.component';
-import { BlogCreateComponent } from './blog/blogCreate.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 
 @NgModule({
@@ -35,8 +35,7 @@ import { BlogCreateComponent } from './blog/blogCreate.component';
     AboutComponent,
     RadarComponent,
     ContactComponent,
-    BlogComponent,
-    BlogCreateComponent
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -46,8 +45,8 @@ import { BlogCreateComponent } from './blog/blogCreate.component';
     SharedModule,
     AuthModule,
     AdminModule,
-    AppRoutingModule,
-    CKEditorModule
+    BlogModule,
+    AppRoutingModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

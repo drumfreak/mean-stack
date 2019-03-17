@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { Blog } from './blog';
+import {Weather} from '../weather/weather';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -24,6 +25,15 @@ export class BlogService {
         .pipe(
             tap(_ => this.log('fetched blog list')),
             catchError(this.handleError('getBlogs', []))
+        );
+  }
+
+
+  getBlog (blogId): Observable<{}> {
+    return this.http.get<Blog>('/api/blog/' + blogId)
+        .pipe(
+            tap(_ => this.log('fetched getBlog')),
+            catchError(this.handleError('getBlog', []))
         );
   }
 

@@ -10,10 +10,13 @@ module.exports = router;
 // Setting up the users api
 // var users = require('../controllers/users');
 
+router.get('/list/:page', asyncHandler(getBlogs));
+router.get('/:id', asyncHandler(getBlogById));
+
+
 /* Submit Email Contact. */
 router.use(passport.authenticate('jwt', { session: false }));
 router.post('/submit', asyncHandler(submitBlog));
-router.get('/list/:page', asyncHandler(getBlogs));
 
 async function submitBlog(req, res) {
   let blogEntry = req.body;
@@ -34,6 +37,15 @@ async function getBlogs(req, res) {
     // console.log('Saved contact to db');
     // console.log(blog);
     res.json(blogs);
+  });
+}
+
+
+async function getBlogById(req, res) {
+  await blogController.getBlogById(req.params.id, function(blog) {
+    // console.log('Saved contact to db');
+    // console.log(blog);
+    res.json(blog);
   });
 }
 

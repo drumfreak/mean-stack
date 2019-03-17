@@ -7,8 +7,7 @@ import { AboutComponent } from '../about/about.component';
 import { WeatherComponent } from '../weather/weather.component';
 import { RadarComponent } from '../radar/radar.component';
 import { ContactComponent } from '../contact/contact.component';
-import { BlogComponent } from '../blog/blog.component';
-import { BlogCreateComponent } from '../blog/blogCreate.component';
+import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
 
 const routes: Routes = [{
   path: '',
@@ -34,17 +33,8 @@ const routes: Routes = [{
 }, {
     path: 'contact',
     component: ContactComponent
-}, {
-  path: 'blog',
-  component: BlogComponent
-},  {
-  path: 'blog/create',
-  component: BlogCreateComponent
-}, { path: 'blog/:id',
-    component: BlogCreateComponent
-}, { path: 'blog/:id/edit',
-    component: BlogCreateComponent
-  }
+}, { path: '**', component: PageNotFoundComponent }
+
 ];
 
 @NgModule({
