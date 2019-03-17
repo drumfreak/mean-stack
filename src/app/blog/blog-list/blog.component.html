@@ -5,7 +5,7 @@
             <h1>Blog</h1>
         </div>
 
-        <div class="col-md-12 text-right">
+        <div *ngIf="user && user.isAdmin" class="col-md-12 text-right">
             <a href="" [routerLink]="['/blog/create']">New Article</a>
         </div>
 

@@ -1,9 +1,9 @@
 import { switchMap } from 'rxjs/operators';
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable } from 'rxjs';
-
 import { BlogService } from '../blog.service';
+import { AuthService } from '../../auth/auth.service';
 
 
 @Component({
@@ -14,6 +14,7 @@ import { BlogService } from '../blog.service';
 })
 
 export class BlogViewComponent implements OnInit {
+    @Input() user: any = {};
     loading: boolean;
     submitted: boolean;
     blog: any = {};
@@ -23,7 +24,8 @@ export class BlogViewComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private router: Router,
-        private blogService: BlogService
+        private blogService: BlogService,
+        private authService: AuthService
     ) {}
 
     ngOnInit() {
@@ -31,20 +33,28 @@ export class BlogViewComponent implements OnInit {
         this.blog.body = '';
         this.blog.caption = '';
 
-       let blogId = this.route.snapshot.paramMap.get('id');
+        this.authService.me().subscribe(data => {
+            this.user = data.user;
+        });
 
-        // this.blog$ = this.route.paramMap.pipe(
-        //     switchMap((params: ParamMap) =>
-        //         this.blogService.getBlog(params.get('id')))
-        // );
-
-
+       const blogId = this.route.snapshot.paramMap.get('id');
         this.blogService.getBlog(blogId)
             .subscribe(blog => {
                 this.blog = blog;
                 this.loading = false;
             });
 
+    }
+
+    navigate(id: number) {
+        id = id || 1;
+        this.router.navigate([`/blog/${id}`]);
+        const blogId = id;
+        this.blogService.getBlog(blogId)
+            .subscribe(blog => {
+                this.blog = blog;
+                this.loading = false;
+            });
     }
 
     gotoBlogs() {

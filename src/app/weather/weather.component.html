@@ -35,30 +35,34 @@
     <div class="text-center">
       <h2>Weather for <i>{{wLocation}}</i></h2>
     </div>
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th scope="col">Day</th>
-          <th scope="col">Date</th>
-          <th scope="col">Condition</th>
-          <th scope="col">Low / High</th>
-          <th scope="col">Humidity</th>
-          <th scope="col">Air Pressure</th>
-          <th scope="col">Wind</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let w of weather" class="table-light">
-          <th scope="row">{{w.applicable_date | date:'EE'}}</th>
-          <th scope="row">{{w.applicable_date | date:'MM/dd'}}</th>
-          <td>{{w.weather_state_name}}</td>
-          <td>{{(w.min_temp  * 9.0 / 5.0 + 32) | number : '1.0-0'}} / {{(w.max_temp  * 9.0 / 5.0 + 32) | number : '1.0-0'}} &#8457;</td>
-          <td>{{w.humidity | number:'1.0-0'}}%</td>
-          <td>{{w.air_pressure | number:'1.0-2'}} mb</td>
-          <td>{{w.wind_speed | number:'1.0-0'}} {{w.wind_direction_compass}}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="col-lg-12">
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Day</th>
+              <th scope="col">Date</th>
+              <th scope="col">Condition</th>
+              <th scope="col">Low / High</th>
+              <th scope="col">Humidity</th>
+              <th scope="col">Air Pressure</th>
+              <th scope="col">Wind</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let w of weather" class="table-light">
+              <th scope="row">{{w.applicable_date | date:'EE'}}</th>
+              <th scope="row">{{w.applicable_date | date:'MM/dd'}}</th>
+              <td>{{w.weather_state_name}}</td>
+              <td>{{(w.min_temp  * 9.0 / 5.0 + 32) | number : '1.0-0'}} / {{(w.max_temp  * 9.0 / 5.0 + 32) | number : '1.0-0'}} &#8457;</td>
+              <td>{{w.humidity | number:'1.0-0'}}%</td>
+              <td>{{w.air_pressure | number:'1.0-2'}} mb</td>
+              <td>{{w.wind_speed | number:'1.0-0'}} {{w.wind_direction_compass}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>
 
