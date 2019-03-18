@@ -1,16 +1,12 @@
-import { switchMap } from 'rxjs/operators';
 import {Component, Input, OnInit} from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { Observable } from 'rxjs';
 import { BlogService } from '../blog.service';
 import { AuthService } from '../../auth/auth.service';
-
 
 @Component({
     selector: 'app-blog',
     templateUrl: './blogView.component.html',
     styleUrls: ['../blog-list/blog.component.scss']
-
 })
 
 export class BlogViewComponent implements OnInit {
@@ -18,7 +14,6 @@ export class BlogViewComponent implements OnInit {
     loading: boolean;
     submitted: boolean;
     blog: any = {};
-    blog$: Observable<{}>;
     model: any = {};
 
     constructor(
@@ -37,7 +32,7 @@ export class BlogViewComponent implements OnInit {
             this.user = data.user;
         });
 
-       const blogId = this.route.snapshot.paramMap.get('id');
+        const blogId = this.route.snapshot.paramMap.get('id');
         this.blogService.getBlog(blogId)
             .subscribe(blog => {
                 this.blog = blog;
@@ -47,15 +42,14 @@ export class BlogViewComponent implements OnInit {
     }
 
     navigate(id: number) {
-        id = id || 1;
+        const blogId = id || 1;
         this.router.navigate([`/blog/${id}`]);
-        const blogId = id;
         this.blogService.getBlog(blogId)
             .subscribe(blog => {
                 this.blog = blog;
                 this.loading = false;
                 let scrollToTop = window.setInterval(() => {
-                    let pos = window.pageYOffset;
+                    const pos = window.pageYOffset;
                     if (pos > 0) {
                         window.scrollTo(0, pos - 50); // how far to scroll on each step
                     } else {

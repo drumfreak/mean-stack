@@ -2,16 +2,22 @@ const Joi = require('joi');
 const Blog = require('../models/blog.model');
 
 const blogSchema = Joi.object({
-  title: Joi.string().required(),
-  body: Joi.string().required(),
-  caption: Joi.string().required(),
-  user: Joi.string().required()
+    title: Joi.string().required(),
+    body: Joi.string().required(),
+    caption: Joi.string().required(),
+    user: Joi.string().required(),
+    views: Joi.number(), // optional
+    createdAt: Joi.string(), // optional
+    _id: Joi.string() // optional
+
 })
 
 module.exports = {
-  submitBlog,
-  getBlogs,
-  getBlogById
+    submitBlog,
+    updateBlog,
+    getBlogs,
+    getBlogById,
+    deleteBlogById
 }
 
 async function submitBlog(blog, cb) {
@@ -22,17 +28,49 @@ async function submitBlog(blog, cb) {
   cb(await new Blog(blogEntry).save());
 }
 
-async function getBlogs(page, cb) {
-  Blog.find({})
-      .sort('-createdAt')
-      .populate('user', '-hashedPassword -email')
-      .exec(function(err, data) {
-          // console.log(err, data, data.length);
-          if(data) {
-            cb(data);
-          } else {
-            cb({});
-          }
+async function updateBlog(blog, cb) {
+    if(!blog) {
+        return {};
+    }
+    delete blog.prevBlog;
+    delete blog.nextBlog;
+
+    let blogEntry = await Joi.validate(blog, blogSchema, {abortEarly: false});
+    Blog.findOne({ _id: blogEntry._id }, function (err, blog){
+        blog.title = blogEntry.title;
+        blog.caption = blogEntry.caption;
+        blog.body = blogEntry.body;
+        blog.save();
+        // console.log(blog);
+        cb(blog);
+    });
+}
+
+async function getBlogs(pageX, limitX,  cb) {
+    const limit = parseInt(limitX);
+    const page = parseInt(pageX);
+
+    Blog.count({}, function (err, count) {
+        if (err) {
+            cb({count: 0, data:[]});
+        }
+        if(count > 0) {
+            Blog.find({})
+                .skip(page * limit)
+                .limit(limit)
+                .sort('-createdAt')
+                .populate('user', '-hashedPassword -email')
+                .exec(function(err, data) {
+                    console.log(err, data);
+                    if(data) {
+                        cb({count: count, data:data});
+                    } else {
+                        cb({count: 0, data: []});
+                    }
+                });
+        } else {
+            cb({count: 0, data: []})
+        }
   });
 }
 
@@ -71,4 +109,19 @@ async function getBlogById(id, cb) {
       });
 }
 
+
+async function deleteBlogById(id, cb) {
+    Blog.findById(id)
+        .sort('-createdAt')
+        .exec(function(err, data) {
+            // console.log(err, data, data.length);
+            if(data) {
+                data.remove();
+                console.log(data);
+                cb('ok');
+            } else {
+                cb('error');
+            }
+        });
+}
 

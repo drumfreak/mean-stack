@@ -1,0 +1,47 @@
+<div *ngIf="!loading && !submitted" class="mainContainer">
+  <div class="jumbotron">
+    <div class="text-center">
+      <div class="alert alert-dismissible alert-primary">
+        <h2>Delete Blog Entry?</h2>
+        <br/>
+        <h5>Would you like to delete <em>{{blog.title}}</em>?</h5>
+
+        <p>
+          <button type="button" class="btn btn-secondary" [routerLink]="['/blog', blog._id]">No, Go Back</button>
+          &nbsp;
+          <button type="button" class="btn btn-danger" (click)="onDelete()">Yes, Delete</button>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!loading && submitted && response && response.message === 'ok'" class="mainContainer">
+  <div class="jumbotron">
+    <div class="text-center">
+      <div class="alert alert-dismissible alert-success">
+        <h2>Deleted Blog Entry</h2>
+        <br/>
+        <h5><em>{{blog.title}}</em> has been deleted.</h5>
+        <p>
+          <button type="button" class="btn btn-secondary" [routerLink]="['/blog']">Blog Index</button>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!loading && submitted && response && response.message === 'error'" class="mainContainer">
+  <div class="jumbotron">
+    <div class="text-center">
+      <div class="alert alert-dismissible alert-danger">
+        <h2>Error Deleting Blog Entry</h2>
+        <br/>
+        <h5>Blog Entry was not deleted.</h5>
+        <p>
+          <button type="button" class="btn btn-secondary" [routerLink]="['/blog']">Blog Index</button>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

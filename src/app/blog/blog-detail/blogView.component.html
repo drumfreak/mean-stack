@@ -7,8 +7,8 @@
         <div class="col-md-12 text-right">
             [ <a href="" [routerLink]="['/blog']">Index</a><span *ngIf="user && user.isAdmin"> |
             <a href="" [routerLink]="['/blog/create']">New Article</a> |
-            <a href="/blog/{{blog._id}}/edit">Edit</a> |
-            <a href="/blog/{{blog._id}}/delete">Delete</a> </span> ]
+            <a href="" [routerLink]="['/blog/', blog._id, 'edit']">Edit</a> |
+            <a href="" [routerLink]="['/blog/', blog._id, 'delete']">Delete</a> </span> ]
         </div>
 
         <div>
