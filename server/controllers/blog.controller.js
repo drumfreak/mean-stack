@@ -50,7 +50,7 @@ async function getBlogs(pageX, limitX,  cb) {
     const limit = parseInt(limitX);
     const page = parseInt(pageX);
 
-    Blog.count({}, function (err, count) {
+    Blog.estimatedDocumentCount({}, function (err, count) {
         if (err) {
             cb({count: 0, data:[]});
         }

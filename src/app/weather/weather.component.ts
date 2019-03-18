@@ -1,14 +1,17 @@
-import {Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewChild, ElementRef} from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
 import { Weather } from './weather';
 import { WeatherService } from './weather.service';
 import { Chart } from 'chart.js';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-home',
   templateUrl: './weather.component.html',
   styleUrls: ['./weather.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [DatePipe]
 })
+
 export class WeatherComponent implements OnInit {
   weather: Weather[];
   weatherLocation: string;
@@ -37,7 +40,8 @@ export class WeatherComponent implements OnInit {
 
   constructor(
       private weatherService: WeatherService,
-      private ref: ChangeDetectorRef
+      private ref: ChangeDetectorRef,
+      private datePipe: DatePipe
   ) { }
 
   ngOnInit() {
@@ -86,6 +90,7 @@ export class WeatherComponent implements OnInit {
   }
 
   temperatureChart(weather): void {
+    const datePipe = new DatePipe('en-US');
     const temperaturesMin = [];
     const temperaturesMax = [];
     const airPressure = [];
@@ -99,7 +104,7 @@ export class WeatherComponent implements OnInit {
       airPressure.push(w.air_pressure);
       humidity.push(w.humidity);
       wind.push(w.wind_speed);
-      days.push(w.applicable_date);
+      days.push(datePipe.transform(w.applicable_date, 'MM/dd'));
     });
 
     this.tempData = {
