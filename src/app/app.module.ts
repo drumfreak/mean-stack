@@ -14,6 +14,7 @@ import { CatchErrorInterceptor } from './interceptors/http-error.interceptor';
 
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { BlogModule } from './blog/blog.module';
+import { ChartsModule } from './charts/charts.module';
 
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
@@ -46,6 +47,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     AuthModule,
     AdminModule,
     BlogModule,
+    ChartsModule,
     AppRoutingModule
   ],
   providers: [{

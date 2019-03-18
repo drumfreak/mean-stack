@@ -61,7 +61,7 @@ async function getBlogs(pageX, limitX,  cb) {
                 .sort('-createdAt')
                 .populate('user', '-hashedPassword -email')
                 .exec(function(err, data) {
-                    console.log(err, data);
+                    // console.log(err, data);
                     if(data) {
                         cb({count: count, data:data});
                     } else {

@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { BlogService } from '../blog.service';
 import { ActivatedRoute } from '@angular/router';
-import {AuthService} from '../../auth/auth.service';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
     selector: 'app-blog',

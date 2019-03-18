@@ -1,6 +1,3 @@
-
-
-
 <div *ngIf="loading" class="mainContainer">
   <div class="jumbotron">
     <div class="text-center">
@@ -31,7 +28,6 @@
   </div>
 
   <div class="jumbotron">
-
     <div class="text-center">
       <h2>Weather for <i>{{wLocation}}</i></h2>
     </div>
@@ -66,6 +62,35 @@
   </div>
 </div>
 
+<div class="jumbotron">
+  <div class="row col-md-12">
+    <div class="col-md-1"></div>
+    <div class="col-md-5">
+      <h5 *ngIf="!loading">Temperature</h5>
+      <canvas #temperatureCanvas>{{ chart }}</canvas>
+    </div>
+    <div class="col-md-5">
+      <h5 *ngIf="!loading">Air Pressure</h5>
+      <canvas #pressureCanvas>{{ chart }}</canvas>
+    </div>
+    <div class="col-md-1"></div>
+  </div>
+
+  <div class="row col-md-12">
+    <div class="col-md-1"></div>
+    <div class="col-md-5">
+      <h5 *ngIf="!loading">Hudmity</h5>
+      <canvas #humidityCanvas>{{ chart }}</canvas>
+    </div>
+    <div class="col-md-5">
+      <h5 *ngIf="!loading">Wind</h5>
+      <canvas #windCanvas>{{ chart }}</canvas>
+    </div>
+    <div class="col-md-1"></div>
+  </div>
+
+</div>
+
 <div class="mainContainer" *ngIf="weather === 'undefined' || weather.length === 0 && !loading">
   <div class="jumbotron">
     <p>No weather data for that location.</p>
@@ -76,7 +101,7 @@
 
 <div *ngIf="!loading" class="mainContainer">
   <div class="jumbotron">
-    <h1 class="display-3">MEAN Weather</h1>
+    <h5>MEAN Weather</h5>
     <p class="lead">This is a simple demo of using a Node.js api to fetch weather by zipcode or city.</p>
     <hr class="my-4">
     <p>It utilizes the <a target="_blank" href="https://www.metaweather.com">MetaWeather.com</a> free API.</p>

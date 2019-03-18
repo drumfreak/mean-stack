@@ -10,31 +10,33 @@ import { ContactComponent } from '../contact/contact.component';
 import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
 
 const routes: Routes = [{
-  path: '',
-  component: HomeComponent
+    path: '',
+    component: HomeComponent
 }, {
-  path: 'auth',
-  loadChildren: 'app/auth/auth.module#AuthModule'
+    path: 'auth',
+    loadChildren: 'app/auth/auth.module#AuthModule'
 }, {
-  path: 'admin',
-  loadChildren: 'app/admin/admin.module#AdminModule'
+    path: 'admin',
+    loadChildren: 'app/admin/admin.module#AdminModule'
 }, {
-  path: 'about',
-  component: AboutComponent
+    path: 'about',
+    component: AboutComponent
 }, {
-  path: 'weather',
-  component: WeatherComponent
+    path: 'weather',
+    component: WeatherComponent
 }, {
-  path: 'radar',
-  component: RadarComponent
+    path: 'radar',
+    component: RadarComponent
 }, {
     path: 'userprofile',
     component: UserprofileComponent
 }, {
     path: 'contact',
     component: ContactComponent
-}, { path: '**', component: PageNotFoundComponent }
-
+}, {
+    path: '**',
+    component: PageNotFoundComponent
+}
 ];
 
 @NgModule({
