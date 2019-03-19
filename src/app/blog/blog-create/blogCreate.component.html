@@ -2,6 +2,14 @@
     <li class="breadcrumb-item"><a href="#" [routerLink]="['/']">Home</a></li>
     <li class="breadcrumb-item active"><a href="#" [routerLink]="['/blog']">Blog</a></li>
 </ol>
+<div class="text-center" *ngIf="!loading && !user._id">
+    <p>Please <a [routerLink]="['/auth/login']">Login</a></p>
+</div>
+
+<div class="text-center" *ngIf="!loading && user && !user.isAdmin">
+    <p>You are not authorized to create blog entries.</p>
+</div>
+
 <div *ngIf="user && user.isAdmin">
     <div *ngIf="!loading && !submitted" class="mainContainer">
         <div class="jumbotron">

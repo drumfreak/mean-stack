@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../auth/auth-guard.service';
 import { HomeComponent } from '../home/home.component';
-import { UserprofileComponent } from '../userprofile/userprofile.component';
 import { AboutComponent } from '../about/about.component';
 import { WeatherComponent } from '../weather/weather.component';
 import { RadarComponent } from '../radar/radar.component';
@@ -27,9 +26,6 @@ const routes: Routes = [{
 }, {
     path: 'radar',
     component: RadarComponent
-}, {
-    path: 'userprofile',
-    component: UserprofileComponent
 }, {
     path: 'contact',
     component: ContactComponent

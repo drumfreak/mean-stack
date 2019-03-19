@@ -1,7 +1,6 @@
 import { Component, Input, OnInit} from '@angular/core';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { BlogService } from '../blog.service';
-import { AuthService } from '../../auth/auth.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
@@ -12,7 +11,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 export class BlogEditComponent implements OnInit {
   public Editor = ClassicEditor;
-  @Input() user: any = {};
+  user = (<any>window).user;
   loading: boolean;
   submitted: boolean;
   blog: any = {};
@@ -21,14 +20,11 @@ export class BlogEditComponent implements OnInit {
   constructor(
       private route: ActivatedRoute,
       private router: Router,
-      private blogService: BlogService,
-      private authService: AuthService
+      private blogService: BlogService
   ) {}
 
   ngOnInit() {
     this.loading = true;
-    this.authService.me().subscribe(data => {
-      this.user = data.user;
       this.blog.title = '';
       this.blog.body = '';
       this.blog.caption = '';
@@ -39,7 +35,6 @@ export class BlogEditComponent implements OnInit {
             this.blog = blog;
             this.loading = false;
           });
-    });
   }
 
   onSubmit() {

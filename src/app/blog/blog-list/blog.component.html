@@ -8,6 +8,10 @@
         <div *ngIf="user && user.isAdmin" class="col-md-12 text-right">
             <a href="" [routerLink]="['/blog/create']">New Article</a>
         </div>
+        <div *ngIf="blogs && blogs.data.length === 0">
+            No blog entries at this time.
+        </div>
+
         <div *ngIf="blogs && blogs.data">
 
             <div class="card border-info mb-3" *ngFor="let blog of blogsList$">
@@ -27,7 +31,7 @@
         <div class="text-center" *ngIf="blogsList$.length > 0">
             <p>Showing: 1 - {{blogsList$.length}} of {{totalBlogs}}<br /></p>
         </div>
-        <div *ngIf="totalPages > page" class="text-center">
+        <div *ngIf="totalPages > page && blogsList$.length < totalBlogs" class="text-center">
             <button type="button" class="btn btn-primary" (click)="getNextBlogs()">Load More</button>
         </div>
 

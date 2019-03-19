@@ -15,11 +15,11 @@ import { CatchErrorInterceptor } from './interceptors/http-error.interceptor';
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { BlogModule } from './blog/blog.module';
 import { ChartsModule } from './charts/charts.module';
+import { UserprofileModule } from './userprofile/userprofile.module';
 
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { WeatherComponent } from './weather/weather.component';
-import { UserprofileComponent } from './userprofile/userprofile.component';
 import { AboutComponent } from './about/about.component';
 import { RadarComponent } from './radar/radar.component';
 import { ContactComponent } from './contact/contact.component';
@@ -32,7 +32,6 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     HeaderComponent,
     HomeComponent,
     WeatherComponent,
-    UserprofileComponent,
     AboutComponent,
     RadarComponent,
     ContactComponent,
@@ -48,6 +47,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     AdminModule,
     BlogModule,
     ChartsModule,
+    UserprofileModule,
     AppRoutingModule
   ],
   providers: [{

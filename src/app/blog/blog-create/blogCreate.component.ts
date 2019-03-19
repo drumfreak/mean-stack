@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { BlogService } from '../blog.service';
-import { AuthService } from '../../auth/auth.service';
 
 @Component({
     selector: 'app-blog',
@@ -11,29 +10,27 @@ import { AuthService } from '../../auth/auth.service';
 
 export class BlogCreateComponent implements OnInit {
     public Editor = ClassicEditor;
-    @Input() user: any = {};
+    user = (<any>window).user;
     loading: boolean;
     submitted: boolean;
     newBlog: any = {};
     model: any = {};
 
     constructor(
-        private blogService: BlogService,
-        private authService: AuthService
+        private blogService: BlogService
     ) { }
 
     ngOnInit() {
-        this.authService.me().subscribe(data => {
-            this.user = data.user;
-            this.model.title = '';
-            this.model.body = '';
-            this.model.caption = '';
-            this.newBlog = {};
-        });
+        this.loading = true;
+        this.model.title = '';
+        this.model.body = '';
+        this.model.caption = '';
+        this.newBlog = {};
+        this.loading = false;
     }
 
     onSubmit() {
-        if(this.user && this.user.isAdmin) {
+        if (this.user && this.user.isAdmin) {
             this.loading = true;
             this.blogService.createBlog(this.model).subscribe(newBlog => {
                 this.newBlog = newBlog;

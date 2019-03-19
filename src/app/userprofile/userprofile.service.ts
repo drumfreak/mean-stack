@@ -19,8 +19,8 @@ export class UserprofileService {
 
   /** GET heroes from the server */
 
-  getUserProfile (userId): Observable<Userprofile[]> {
-    return this.http.get<Userprofile[]>('/api/userprofile/' + userId)
+  getUserProfile (userId): Observable<{}> {
+    return this.http.get<Userprofile>('/api/userprofile/' + userId)
       .pipe(
         tap(_ => this.log('fetched userProfile')),
         catchError(this.handleError('getWeather', []))

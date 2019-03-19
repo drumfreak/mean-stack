@@ -1,6 +1,5 @@
 import { Component, Input, OnInit} from '@angular/core';
 import { BlogService } from '../blog.service';
-import { AuthService } from '../../auth/auth.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
@@ -10,7 +9,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 })
 
 export class BlogDeleteComponent implements OnInit {
-  @Input() user: any = {};
+  user = (<any>window).user;
   loading: boolean;
   submitted: boolean;
   blog: any = {};
@@ -19,13 +18,10 @@ export class BlogDeleteComponent implements OnInit {
   constructor(
       private route: ActivatedRoute,
       private router: Router,
-      private blogService: BlogService,
-      private authService: AuthService
+      private blogService: BlogService
   ) {}
 
   ngOnInit() {
-    this.authService.me().subscribe(data => {
-      this.user = data.user;
       this.blog.title = '';
       this.blog.body = '';
       this.blog.caption = '';
@@ -35,7 +31,6 @@ export class BlogDeleteComponent implements OnInit {
             this.blog = blog;
             this.loading = false;
           });
-    });
   }
 
   onDelete() {
