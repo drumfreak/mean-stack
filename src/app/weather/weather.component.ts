@@ -28,6 +28,19 @@ export class WeatherComponent implements OnInit {
   chartOptions: {};
   model: any = {};
 
+  iconMap = {
+      "sn": "wi wi-snow",
+      "sl": "wi wi-sleet",
+      "h" : "wi wi-hail", // hail
+      "t" : "wi wi-thunderstorm", // thunderstorm
+      "hr": "wi wi-rain", // heavy rain
+      "lr": "wi wi-sprinkle", // light rain
+      "s":  "wi wi-showers", // showers
+      "hc": "wi wi-cloudy", // heavy clouds
+      "lc" : "wi wi-cloud", // light clouds
+      "c" : "wi wi-day-sunny" // clear
+  };
+
   @ViewChild('temperatureCanvas') tempCanvas: ElementRef;
   @ViewChild('pressureCanvas') pressureCanvas: ElementRef;
   @ViewChild('humidityCanvas') humidityCanvas: ElementRef;

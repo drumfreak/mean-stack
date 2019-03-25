@@ -1,112 +1,112 @@
-<div *ngIf="loading" class="mainContainer">
-  <div class="jumbotron">
-    <div class="text-center">
-      <div class="spinner-grow" style="width: 3rem; height: 3rem;" role="status">
-        <span class="sr-only">Loading...</span>
-      </div>
-      <div class="spinner-grow" style="width: 3rem; height: 3rem;" role="status">
-        <span class="sr-only">Loading...</span>
-      </div>
-      <div class="spinner-grow" style="width: 3rem; height: 3rem;" role="status">
-        <span class="sr-only">Loading...</span>
-      </div>
-
-      <div class="text-center">Loading Weather...</div>
-
+<div *ngIf="loading">
+    <div class="jumbotron mb-0">
+        <div class="text-center">
+            <div class="spinner-grow" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+            <div class="text-center">Loading Weather...</div>
+        </div>
     </div>
-  </div>
+</div> <!-- end loader -->
+
+<div class="jumbotron p-0 mb-0" *ngIf="weather && weather.length > 0 && !loading">
+    <div class="row">
+        <div class="col-sm-12 text-center">
+            <form class="form-inline justify-content-center" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+                <div class="form-group mt-6">
+                    <input class="form-control mt-6" type="text"
+                           name="weatherLocation" [(ngModel)]="model.weatherLocation" #weatherLocation="ngModel"
+                           placeholder="City or Zip Code">
+                </div>
+                <button class="btn btn-secondary my-2 my-sm-0 ml-2 p-6" type="submit">Search</button>
+
+            </form>
+        </div>
+    </div> <!-- end form -->
+
+    <div class="mainContainer p-0 pt-4 pb-4 mb-0">
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <h2>Weather for <i>{{wLocation}}</i></h2>
+            </div>
+        </div>
+        <div class="container p-0">
+            <div class="row text-center">
+                <div class="col-md-2 col-sm-2 border border-light border-3 p-0 mb-2" *ngFor="let w of weather">
+                    <div class="bg-primary p-2 text-light col-md-12">
+                        <h4>{{w.applicable_date | date:'EE'}} {{w.applicable_date | date:'MM/dd'}}</h4>
+                    </div>
+                    <div class="bg-light pb-5">
+                        <i  style="font-size: 40px;margin-bottom:16px;"
+                           class="{{iconMap[w.weather_state_abbr]}} text-primary"></i><br/>
+                        <h4 class="card-title">{{(w.min_temp * 9.0 / 5.0 + 32) | number : '1.0-0'}}
+                            / {{(w.max_temp * 9.0 / 5.0 + 32) | number : '1.0-0'}} &#8457;</h4>
+                        <p class="card-text">{{w.weather_state_name}}<br/>
+                            Humidity: {{w.humidity | number:'1.0-0'}}%<br/>
+                            Pressure: {{w.air_pressure | number:'1.0-2'}} mb<br/>
+                            Wind: {{w.wind_speed | number:'1.0-0'}} {{w.wind_direction_compass}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<div class="mainContainer" *ngIf="weather && weather.length > 0 && !loading">
-  <div class="row justify-content-md-center">
-    <form class="form-inline my-2 my-lg-0" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
-      <input class="form-control mr-sm-2" type="text"
-             name="weatherLocation" [(ngModel)]="model.weatherLocation" #weatherLocation="ngModel"
-             placeholder="City or Zip Code">
-      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-    </form>
-  </div>
+<div class="jumbotron p-2 mb-0">
+    <div class="container p-0">
+        <div class="row col-md-12">
+            <div class="col-md-1"></div>
+            <div class="col-md-5">
+                <h5 *ngIf="!loading">Temperature</h5>
+                <canvas #temperatureCanvas>{{ chart }}</canvas>
+            </div>
+            <div class="col-md-5">
+                <h5 *ngIf="!loading">Air Pressure</h5>
+                <canvas #pressureCanvas>{{ chart }}</canvas>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
 
-  <div class="jumbotron">
-    <div class="text-center">
-      <h2>Weather for <i>{{wLocation}}</i></h2>
+        <div class="row col-md-12">
+            <div class="col-md-1"></div>
+            <div class="col-md-5">
+                <h5 *ngIf="!loading">Hudmity</h5>
+                <canvas #humidityCanvas>{{ chart }}</canvas>
+            </div>
+            <div class="col-md-5">
+                <h5 *ngIf="!loading">Wind</h5>
+                <canvas #windCanvas>{{ chart }}</canvas>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
     </div>
-    <div class="col-lg-12">
-      <div class="table-responsive">
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th scope="col">Day</th>
-              <th scope="col">Date</th>
-              <th scope="col">Condition</th>
-              <th scope="col">Low / High</th>
-              <th scope="col">Humidity</th>
-              <th scope="col">Air Pressure</th>
-              <th scope="col">Wind</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let w of weather" class="table-light">
-              <th scope="row">{{w.applicable_date | date:'EE'}}</th>
-              <th scope="row">{{w.applicable_date | date:'MM/dd'}}</th>
-              <td>{{w.weather_state_name}}</td>
-              <td>{{(w.min_temp  * 9.0 / 5.0 + 32) | number : '1.0-0'}} / {{(w.max_temp  * 9.0 / 5.0 + 32) | number : '1.0-0'}} &#8457;</td>
-              <td>{{w.humidity | number:'1.0-0'}}%</td>
-              <td>{{w.air_pressure | number:'1.0-2'}} mb</td>
-              <td>{{w.wind_speed | number:'1.0-0'}} {{w.wind_direction_compass}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="jumbotron">
-  <div class="row col-md-12">
-    <div class="col-md-1"></div>
-    <div class="col-md-5">
-      <h5 *ngIf="!loading">Temperature</h5>
-      <canvas #temperatureCanvas>{{ chart }}</canvas>
-    </div>
-    <div class="col-md-5">
-      <h5 *ngIf="!loading">Air Pressure</h5>
-      <canvas #pressureCanvas>{{ chart }}</canvas>
-    </div>
-    <div class="col-md-1"></div>
-  </div>
-
-  <div class="row col-md-12">
-    <div class="col-md-1"></div>
-    <div class="col-md-5">
-      <h5 *ngIf="!loading">Hudmity</h5>
-      <canvas #humidityCanvas>{{ chart }}</canvas>
-    </div>
-    <div class="col-md-5">
-      <h5 *ngIf="!loading">Wind</h5>
-      <canvas #windCanvas>{{ chart }}</canvas>
-    </div>
-    <div class="col-md-1"></div>
-  </div>
-
 </div>
 
 <div class="mainContainer" *ngIf="weather === 'undefined' || weather.length === 0 && !loading">
-  <div class="jumbotron">
-    <p>No weather data for that location.</p>
-  </div>
+    <div class="jumbotron p-2 mb-0">
+        <p>No weather data for that location.</p>
+    </div>
 </div>
 
-<p>&nbsp;</p>
-
-<div *ngIf="!loading" class="mainContainer">
-  <div class="jumbotron">
-    <h5>MEAN Weather</h5>
-    <p class="lead">This is a simple demo of using a Node.js api to fetch weather by zipcode or city.</p>
-    <hr class="my-4">
-    <p>It utilizes the <a target="_blank" href="https://www.metaweather.com">MetaWeather.com</a> free API.</p>
-    <p class="lead">
-      <a class="btn btn-primary btn-lg" href="https://www.metaweather.com" target="_blank" role="button">Learn more</a>
-    </p>
-  </div>
+<div *ngIf="!loading" class="jumbotron p-8 mb-0">
+    <div class="container">
+    <div class="row">
+        <div class="col-md-10">
+        <h5>MEAN Weather</h5>
+        <p class="lead">This is a simple demo of using a Node.js api to fetch weather by zipcode or city.</p>
+        <hr class="my-4">
+        <p>It utilizes the <a target="_blank" href="https://www.metaweather.com">MetaWeather.com</a> free API.</p>
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" href="https://www.metaweather.com" target="_blank" role="button">Learn
+                more</a>
+        </p>
+        </div>
+    </div>
+    </div>
 </div>
