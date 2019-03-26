@@ -23,8 +23,10 @@ export class UserprofileComponent implements OnInit {
     ) {}
 
     ngOnInit() {
+        this.loading = true;
         // console.log('NG Inited');
-        this.userProfile = {};
+        // this.userProfile = {};
+        this.userProfile.profileImage = '/assets/dummyUser.jpg';
         const userId = this.route.snapshot.paramMap.get('id');
         this.getProfile(userId);
     }

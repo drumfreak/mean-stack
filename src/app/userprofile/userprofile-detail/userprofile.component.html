@@ -3,12 +3,11 @@
   <li class="breadcrumb-item active">User Profile</li>
 </ol>
 
-<div class="mainContainer">
+<div *ngIf="!loading" class="mainContainer">
   <div class="jumbotron">
-
     <div class="col-md-12 row">
       <div class="col-md-3 text-center">
-        <img [src]="userProfile.profileImage" style="width:200px" /><br />
+        <img *ngIf="!loading" [src]="userProfile.profileImage" style="width:200px" /><br />
         <a [routerLink]="['/userprofile', userId, 'edit']" href="#">Edit Profile</a>
       </div>
       <div class="col-md-9">

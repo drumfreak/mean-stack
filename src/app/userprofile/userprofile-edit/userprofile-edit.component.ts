@@ -37,6 +37,7 @@ export class UserprofileEditComponent implements OnInit {
     public uploader: FileUploader;
 
     ngOnInit() {
+        this.userProfile.profileImage = '/assets/dummyUser.jpg';
         this.uploader = new FileUploader({
             url: URL, itemAlias: 'photo',
             authToken: 'Bearer ' + this.authService.getToken()
@@ -78,6 +79,14 @@ export class UserprofileEditComponent implements OnInit {
             }
         };
         this.loading = false;
+    }
+
+    onCancel() {
+        this.router.navigate(['userprofile', this.user._id]).then((e) => {
+            if (e) {
+                console.log("Profile update is successful!");
+            }
+        });
     }
 
     onSubmit() {

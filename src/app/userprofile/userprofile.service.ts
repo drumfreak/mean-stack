@@ -17,7 +17,6 @@ export class UserprofileService {
     constructor(private http: HttpClient) {}
 
     /** GET user profiles from the server */
-
     getUserProfile(userId): Observable<{}> {
         return this.http.get<Userprofile>('/api/userprofile/' + userId)
             .pipe(
@@ -57,7 +56,7 @@ export class UserprofileService {
     /** Log a message with the MessageService */
     private log(message: string) {
         // this.messageService.add(`UserProfileService: ${message}`);
-        console.log(`Message: ${message}`);
+       // console.log(`Message: ${message}`);
         // console.log('Log Service Fired');
     }
 }

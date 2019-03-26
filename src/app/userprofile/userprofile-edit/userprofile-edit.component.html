@@ -59,6 +59,7 @@
                 </fieldset>
 
                 <div class="form-group">
+                    <h5>Profile Image</h5>
                     <img *ngIf="!loading" id="profileImage" alt="User Profile Image" [src]="userProfile.profileImage"
                          style="width:200px"/><br/>
                     <input type="file" id="photo" name="photo" ng2FileSelect [uploader]="uploader"/>
@@ -70,7 +71,8 @@
                 </div>
 
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <button type="submit" class="btn btn-primary mr-1">Save Changes</button>
+                    <button type="submit" class="btn btn-danger" (click)="onCancel()">Cancel</button>
                 </div>
             </form>
         </div>
