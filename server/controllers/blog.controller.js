@@ -10,7 +10,7 @@ const blogSchema = Joi.object({
     createdAt: Joi.string(), // optional
     _id: Joi.string() // optional
 
-})
+});
 
 module.exports = {
     submitBlog,

@@ -6,7 +6,7 @@
 <div *ngIf="user">
   <div *ngIf="!loading && !submitted" class="mainContainer">
     <div class="jumbotron">
-      <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" name="userProfileForm" novalidate>
+      <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" name="userProfileForm" enctype="multipart/form-data" novalidate>
         <fieldset>
           <legend>Edit User Profile!</legend>
           <div class="form-group">
@@ -50,13 +50,28 @@
                       required></textarea>
           </div>
 
+
+
           <div *ngIf="f.submitted && about.invalid" class="invalid-feedback">
             <div *ngIf="about.errors.required">About is required</div>
           </div>
 
           <button type="submit" class="btn btn-primary">Update</button>
         </fieldset>
+
+
+        <img alt="User Profile Image" [src]="userProfile.profileImage" style="width:200px" /><br />
+
+        <input type="file" id="photo" name="photo" ng2FileSelect [uploader]="uploader" />
+
+        <button type="button" class="btn btn-success btn-s"
+                (click)="uploader.uploadAll()"
+                [disabled]="!uploader.getNotUploadedItems().length" >
+          Upload an Image
+        </button>
+
       </form>
+
     </div>
   </div>
 </div>

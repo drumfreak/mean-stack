@@ -70,4 +70,8 @@ export class AuthService {
     this.setUser(null);
     delete (<any>window).user;
   }
+
+  getToken(): string {
+     return this.token.getToken();
+  }
 }

@@ -5,17 +5,19 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { UserprofileComponent } from './userprofile-detail/userprofile.component';
 import { UserprofileEditComponent } from './userprofile-edit/userprofile-edit.component';
 import { UserprofileRoutingModule } from './userprofile-routing.module';
+import { FileUploadModule } from "ng2-file-upload";
 
 @NgModule({
   imports: [
-    CommonModule,
-    FormsModule,
-    CKEditorModule,
-    UserprofileRoutingModule
+      CommonModule,
+      FormsModule,
+      FileUploadModule,
+      CKEditorModule,
+      UserprofileRoutingModule
   ],
   declarations: [
-    UserprofileEditComponent,
-    UserprofileComponent
+      UserprofileEditComponent,
+      UserprofileComponent
   ]
 })
 export class UserprofileModule { }

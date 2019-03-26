@@ -10,29 +10,50 @@ const userProfileSchema = Joi.object({
     createdAt: Joi.string(), // optional
     _id: Joi.string() // optional
 
-})
+});
 
 module.exports = {
     updateUserProfile,
     getUserProfileById
-}
+};
 
 async function updateUserProfile(userProfile, cb) {
-    if(!userProfile) {
+    if (!userProfile) {
         return {};
     }
-    // let userProfileEntry = await Joi.validate(blog, blogSchema, {abortEarly: false});
-    cb(await new UserProfile(userProfile).save());
+
+    // First find the user profile by user id.
+    UserProfile.findOne({user: userProfile.user})
+        .sort('-createdAt')
+        .exec(function (err, profile) {
+            if (profile) {
+                // Update the profile.
+                profile.firstName = userProfile.firstName;
+                profile.lastName = userProfile.lastName;
+                profile.nickName = userProfile.nickName;
+                profile.about = userProfile.about;
+                if (userProfile.profileImage) {
+                    profile.profileImage = userProfile.profileImage;
+                }
+                profile.save();
+                return cb(profile);
+            } else {
+                // Create a new one.
+                return cb(new UserProfile(userProfile).save());
+            }
+        });
+
+
 }
 
-
 async function getUserProfileById(id, cb) {
-    UserProfile.findById(id)
+    UserProfile.findOne({user: id})
         .sort('-createdAt')
         .populate('user', '-hashedPassword -email')
-        .exec(function(err, data) {
+        .exec(function (err, data) {
             // console.log(err, data, data.length);
-            if(data) {
+            if (data) {
+                // console.log(data);
                 cb(data);
             } else {
                 cb({});

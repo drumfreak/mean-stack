@@ -12,23 +12,23 @@ const UserProfileSchema = new mongoose.Schema({
     },
     nickName: {
         type: String,
-        required: true
+        required: false
     },
     interests: {
         type: String,
-        required: true
+        required: false
     },
     profileImage: {
         type: String,
-        required: true
+        required: false
     },
     website: {
         type: String,
-        required: true
+        required: false
     },
     about: {
         type: String,
-        required: true
+        required: false
     },
     createdAt: {
         type: Date,

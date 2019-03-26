@@ -28,7 +28,7 @@ if (config.frontend == 'react'){
   distDir ='../../dist/' ;
  }
 
-// 
+//
 app.use(express.static(path.join(__dirname, distDir)))
 app.use(/^((?!(api)).)*/, (req, res) => {
   res.sendFile(path.join(__dirname, distDir + '/index.html'));
@@ -39,7 +39,7 @@ console.log(distDir);
 app.use(express.static(path.join(__dirname, '../../node_modules/material-dashboard-react/dist')))
 app.use(/^((?!(api)).)*/, (req, res) => {
 res.sendFile(path.join(__dirname, '../../dist/index.html'));
-}); 
+});
 
 
 app.use(bodyParser.json());
@@ -51,6 +51,15 @@ app.use(methodOverride());
 
 // secure apps by setting various HTTP headers
 app.use(helmet());
+
+//create a cors middleware
+app.use(function(req, res, next) {
+  //set headers to allow cross origin request.
+  res.header("Access-Control-Allow-Origin", "http://localhost");
+  res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 // enable CORS - Cross Origin Resource Sharing
 app.use(cors());
@@ -70,7 +79,6 @@ app.use((req, res, next) => {
 
 // error handler, send stacktrace only during development
 app.use((err, req, res, next) => {
-
   // customize Joi validation errors
   if (err.isJoi) {
     err.message = err.details.map(e => e.message).join("; ");
@@ -82,5 +90,7 @@ app.use((err, req, res, next) => {
   });
   next(err);
 });
+
+
 
 module.exports = app;

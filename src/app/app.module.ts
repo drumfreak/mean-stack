@@ -35,7 +35,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     AboutComponent,
     RadarComponent,
     ContactComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,

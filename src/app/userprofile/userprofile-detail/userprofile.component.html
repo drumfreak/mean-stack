@@ -12,8 +12,11 @@
         <a [routerLink]="['/userprofile', userId, 'edit']" href="#">Edit Profile</a>
       </div>
       <div class="col-md-9">
-        <h1>{{user.firstName}}</h1>
+        <h1>{{userProfile.firstName}} <span *ngIf="userProfile.lastName">{{userProfile.lastName}}</span></h1>
+        <span *ngIf="userProfile.nickName"><h2>{{userProfile.nickName}}</h2></span><br />
+        <span *ngIf="userProfile.about"><p>{{userProfile.about}}</p></span>
       </div>
+
     </div>
   </div>
 </div>

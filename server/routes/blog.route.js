@@ -1,7 +1,7 @@
 var express = require('express');
-const passport = require('passport');
-const asyncHandler = require('express-async-handler');
-const blogController = require('../controllers/blog.controller');
+var passport = require('passport');
+var asyncHandler = require('express-async-handler');
+var blogController = require('../controllers/blog.controller');
 
 var router = express.Router();
 module.exports = router;
