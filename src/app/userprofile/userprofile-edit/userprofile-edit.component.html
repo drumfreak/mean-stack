@@ -1,78 +1,79 @@
 <ol class="breadcrumb">
-  <li class="breadcrumb-item"><a href="#" [routerLink]="['/']">Home</a></li>
-  <li class="breadcrumb-item active">User Profile</li>
+    <li class="breadcrumb-item"><a href="#" [routerLink]="['/']">Home</a></li>
+    <li class="breadcrumb-item active">User Profile</li>
 </ol>
 
 <div *ngIf="user">
-  <div *ngIf="!loading && !submitted" class="mainContainer">
-    <div class="jumbotron">
-      <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" name="userProfileForm" enctype="multipart/form-data" novalidate>
-        <fieldset>
-          <legend>Edit User Profile!</legend>
-          <div class="form-group">
-            <label for="firstName">First Name</label>
-            <input type="text" class="form-control" id="firstName" name="firstName" [(ngModel)]="userProfile.firstName"
-                   #firstName="ngModel" placeholder="First Name"
-                   [ngClass]="{ 'is-invalid': f.submitted && firstName.invalid }" required>
+    <div *ngIf="!loading && !submitted" class="mainContainer">
+        <div class="jumbotron">
+            <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" name="userProfileForm"
+                  enctype="multipart/form-data" novalidate>
+                <fieldset>
+                    <legend>Edit User Profile!</legend>
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <input type="text" class="form-control" id="firstName" name="firstName"
+                               [(ngModel)]="userProfile.firstName"
+                               #firstName="ngModel" placeholder="First Name"
+                               [ngClass]="{ 'is-invalid': f.submitted && firstName.invalid }" required>
 
-            <div *ngIf="f.submitted && firstName.invalid" class="invalid-feedback">
-              <div *ngIf="firstName.errors.required">First Name is required</div>
-            </div>
-          </div>
+                        <div *ngIf="f.submitted && firstName.invalid" class="invalid-feedback">
+                            <div *ngIf="firstName.errors.required">First Name is required</div>
+                        </div>
+                    </div>
 
-          <div class="form-group">
-            <label for="lastName">Last Name</label>
-            <input type="text" class="form-control" id="lastName" name="lastName" [(ngModel)]="userProfile.lastName"
-                   #lastName="ngModel" placeholder="Last Name"
-                   [ngClass]="{ 'is-invalid': f.submitted && lastName.invalid }" required>
+                    <div class="form-group">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" class="form-control" id="lastName" name="lastName"
+                               [(ngModel)]="userProfile.lastName"
+                               #lastName="ngModel" placeholder="Last Name"
+                               [ngClass]="{ 'is-invalid': f.submitted && lastName.invalid }" required>
 
-            <div *ngIf="f.submitted && lastName.invalid" class="invalid-feedback">
-              <div *ngIf="lastName.errors.required">Last Name is required</div>
-            </div>
-          </div>
+                        <div *ngIf="f.submitted && lastName.invalid" class="invalid-feedback">
+                            <div *ngIf="lastName.errors.required">Last Name is required</div>
+                        </div>
+                    </div>
 
+                    <div class="form-group">
+                        <label for="nickName">Nickname</label>
+                        <input type="text" class="form-control" id="nickName" name="nickName"
+                               [(ngModel)]="userProfile.nickName"
+                               #nickName="ngModel" placeholder="Nickname"
+                               [ngClass]="{ 'is-invalid': f.submitted && nickName.invalid }" required>
 
-          <div class="form-group">
-            <label for="nickName">Nickname</label>
-            <input type="text" class="form-control" id="nickName" name="nickName" [(ngModel)]="userProfile.nickName"
-                   #nickName="ngModel" placeholder="Nickname"
-                   [ngClass]="{ 'is-invalid': f.submitted && nickName.invalid }" required>
+                        <div *ngIf="f.submitted && nickName.invalid" class="invalid-feedback">
+                            <div *ngIf="nickName.errors.required">Nickname is required</div>
+                        </div>
+                    </div>
 
-            <div *ngIf="f.submitted && nickName.invalid" class="invalid-feedback">
-              <div *ngIf="nickName.errors.required">Nickname is required</div>
-            </div>
-          </div>
+                    <div class="form-group">
+                        <label for="about">About You:</label>
+                        <textarea class="form-control" id="about" name="about" [(ngModel)]="userProfile.about"
+                                  #about="ngModel" rows="3" [ngClass]="{ 'is-invalid': f.submitted && about.invalid }"
+                                  required></textarea>
+                    </div>
 
-          <div class="form-group">
-            <label for="about">About You:</label>
-            <textarea class="form-control" id="about" name="about" [(ngModel)]="userProfile.about"
-                      #about="ngModel" rows="3" [ngClass]="{ 'is-invalid': f.submitted && about.invalid }"
-                      required></textarea>
-          </div>
+                    <div *ngIf="f.submitted && about.invalid" class="invalid-feedback">
+                        <div *ngIf="about.errors.required">About is required</div>
+                    </div>
+                </fieldset>
 
+                <div class="form-group">
+                    <img *ngIf="!loading" id="profileImage" alt="User Profile Image" [src]="userProfile.profileImage"
+                         style="width:200px"/><br/>
+                    <input type="file" id="photo" name="photo" ng2FileSelect [uploader]="uploader"/>
+                </div>
+                <div class="form-group">
+                    <button type="button" class="btn btn-success btn-s" (click)="uploader.uploadAll()"
+                            [disabled]="!uploader.getNotUploadedItems().length">Upload Image
+                    </button>
+                </div>
 
-
-          <div *ngIf="f.submitted && about.invalid" class="invalid-feedback">
-            <div *ngIf="about.errors.required">About is required</div>
-          </div>
-
-          <button type="submit" class="btn btn-primary">Update</button>
-        </fieldset>
-
-
-        <img alt="User Profile Image" [src]="userProfile.profileImage" style="width:200px" /><br />
-
-        <input type="file" id="photo" name="photo" ng2FileSelect [uploader]="uploader" />
-
-        <button type="button" class="btn btn-success btn-s"
-                (click)="uploader.uploadAll()"
-                [disabled]="!uploader.getNotUploadedItems().length" >
-          Upload an Image
-        </button>
-
-      </form>
-
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
     </div>
-  </div>
 </div>
 

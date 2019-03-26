@@ -51,6 +51,7 @@ export class UserprofileEditComponent implements OnInit {
                 if (!this.userProfile.profileImage) {
                     this.userProfile.profileImage = '/assets/dummyUser.jpg';
                 }
+                this.ref.markForCheck();
                 this.loading = false;
             });
 
@@ -60,18 +61,22 @@ export class UserprofileEditComponent implements OnInit {
             file.withCredentials = false;
         };
 
-        // overide the onCompleteItem property of the uploader so we are
+        // override the onCompleteItem property of the uploader so we are
         // able to deal with the server response.
         this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
             // console.log("ImageUpload:uploaded:", item, status, response);
+            this.loading = true;
             let images = JSON.parse(response);
             if (images.images.length > 0) {
+                // console.log(images.images);
                 this.userProfile.profileImage = images.images[0];
-                //console.log('Profile Image', this.userProfile.profileImage);
-                this.ref.markForCheck();
+                // console.log('Profile Image', this.userProfile.profileImage);
+                setTimeout(() => {
+                    this.ref.markForCheck();
+                    this.loading = false;
+                }, 1000);
             }
         };
-
         this.loading = false;
     }
 
