@@ -23,6 +23,18 @@ const BlogSchema = new mongoose.Schema({
         required: false,
 	    default: 0
     },
+    blogImage: {
+        type: String,
+        required: false
+    },
+    blogImage_med: {
+        type: String,
+        required: false
+    },
+    blogImage_large: {
+        type: String,
+        required: false
+    },
     user: { type: Schema.Types.ObjectId, ref: 'User' }
 }, {
     versionKey: false

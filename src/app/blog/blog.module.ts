@@ -8,13 +8,15 @@ import { BlogCreateComponent } from './blog-create/blogCreate.component';
 import { BlogRoutingModule } from './blog-routing.module';
 import { BlogEditComponent } from './blog-edit/blog-edit.component';
 import { BlogDeleteComponent } from './blog-delete/blog-delete.component';
+import { FileUploadModule } from "ng2-file-upload";
 
 @NgModule({
   imports: [
       CommonModule,
       CKEditorModule,
       FormsModule,
-      BlogRoutingModule
+      BlogRoutingModule,
+      FileUploadModule
   ],
   declarations: [
       BlogComponent,

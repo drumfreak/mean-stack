@@ -15,17 +15,32 @@
         <div *ngIf="blogs && blogs.data">
 
             <div class="card border-info mb-3" *ngFor="let blog of blogsList$">
+
                 <div class="card-header">
                     <h4 class="card-title"><a [routerLink]="['/blog', blog._id]">{{blog.title}}</a></h4>
                 </div>
-                <div class="card-body">
-                    <p class="card-text">by: <strong><a [routerLink]="['/blog', blog._id]">{{blog.user.fullname}}</a></strong> on <strong><a [routerLink]="['/blog', blog._id]">{{blog.createdAt | date:'EEEE LLLL dd, yyyy  h:mm a'}}</a></strong></p>
-                    <p class="card-text">
-                        {{blog.caption}}</p>
-                    <div class="float-right">
-                        <a [routerLink]="['/blog', blog._id]">Read More...</a>
+
+                <div class="row">
+                    <div *ngIf="blog.blogImage" class="col-md-2 col-sm-12 mb-2">
+                        <div>
+                            <a href="#" [routerLink]="['/blog', blog._id]">
+                                <img alt="{{blog.title}}" style="width:98%;margin:4px;" [src]="blog.blogImage" />
+                            </a>
+                        </div>
+                    </div>
+                    <div [ngClass]="(blog.blogImage)?'col-md-10':'col-md-12'">
+                        <div class="card-body">
+                            <p class="card-text">by: <strong><a [routerLink]="['/blog', blog._id]">{{blog.user.fullname}}</a></strong> on <strong><a [routerLink]="['/blog', blog._id]">{{blog.createdAt | date:'EEEE LLLL dd, yyyy  h:mm a'}}</a></strong></p>
+                            <p class="card-text">
+                                {{blog.caption}}</p>
+                            <div class="float-right">
+                                <a [routerLink]="['/blog', blog._id]">Read More...</a>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
+
             </div>
         </div>
         <div class="text-center" *ngIf="blogsList$.length > 0">

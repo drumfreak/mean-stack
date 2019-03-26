@@ -50,6 +50,18 @@
 
           <ckeditor name="body" [(ngModel)]="blog.body" [editor]="Editor" data=""></ckeditor>
 
+          <div class="form-group">
+            <h5>Blog Image</h5>
+            <img *ngIf="!loading" id="blogImage" alt="Blog Image" [src]="blog.blogImage"
+                 style="width:600px"/><br/>
+            <input type="file" id="blogphoto" name="blogphoto" ng2FileSelect [uploader]="uploader"/>
+          </div>
+          <div class="form-group">
+            <button type="button" class="btn btn-success btn-s" (click)="uploader.uploadAll()"
+                    [disabled]="!uploader.getNotUploadedItems().length">Upload Image
+            </button>
+          </div>
+
           <button type="submit" class="btn btn-primary">Submit</button>
         </fieldset>
       </form>

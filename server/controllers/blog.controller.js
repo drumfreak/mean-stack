@@ -8,6 +8,7 @@ const blogSchema = Joi.object({
     user: Joi.string().required(),
     views: Joi.number(), // optional
     createdAt: Joi.string(), // optional
+    blogImage: Joi.string(),
     _id: Joi.string() // optional
 
 });
@@ -40,6 +41,9 @@ async function updateBlog(blog, cb) {
         blog.title = blogEntry.title;
         blog.caption = blogEntry.caption;
         blog.body = blogEntry.body;
+        if(blogEntry.blogImage) {
+            blog.blogImage = blogEntry.blogImage;
+        }
         blog.save();
         // console.log(blog);
         cb(blog);
