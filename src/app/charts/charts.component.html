@@ -1,41 +1,40 @@
-
 <div class="mainContent" style="margin-left:auto;margin-right:auto">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="#" [routerLink]="['/']">Home</a></li>
-    <li class="breadcrumb-item active"><a href="#" [routerLink]="['/charts']">Charts</a></li>
-  </ol>
-  <div class="jumbotron">
+    <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a href="#" [routerLink]="['/']">Home</a></li>
+        <li class="breadcrumb-item active">Charts</li>
+    </ol>
+    <div class="jumbotron">
 
-    <div class="row col-md-12">
-      <div class="col-md-1"></div>
-      <div class="col-md-5">
-        <h4>Line Chart:</h4>
-        <canvas id="lineChart"></canvas>
-      </div>
-      <div class="col-md-5">
-        <h4>Bar Chart:</h4>
-        <canvas id="barChart"></canvas>
-      </div>
-      <div class="col-md-1"></div>
+        <div class="row col-md-12">
+            <div class="col-md-1"></div>
+            <div class="col-md-5">
+                <h4>Line Chart:</h4>
+                <canvas id="lineChart"></canvas>
+            </div>
+            <div class="col-md-5">
+                <h4>Bar Chart:</h4>
+                <canvas id="barChart"></canvas>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+
+
+        <div class="row col-md-12">
+            <p>&nbsp;</p>
+        </div>
+
+        <div class="row col-md-12">
+            <div class="col-md-1"></div>
+            <div class="col-md-5">
+                <h4>Pie Chart:</h4>
+                <canvas height="300" id="pieChart"></canvas>
+            </div>
+            <div class="col-md-5">
+                <h4>Doughnut Chart:</h4>
+                <canvas height="300" id="donutChart"></canvas>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+
     </div>
-
-
-    <div class="row col-md-12">
-      <p>&nbsp;</p>
-    </div>
-
-    <div class="row col-md-12">
-      <div class="col-md-1"></div>
-      <div class="col-md-5">
-        <h4>Pie Chart:</h4>
-        <canvas id="pieChart"></canvas>
-      </div>
-      <div class="col-md-5">
-        <h4>Doughnut Chart:</h4>
-        <canvas height="300" id="donutChart"></canvas>
-      </div>
-      <div class="col-md-1"></div>
-    </div>
-
-  </div>
 </div>

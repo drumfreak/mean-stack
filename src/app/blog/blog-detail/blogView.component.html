@@ -1,7 +1,8 @@
 <div class="mainContent" style="margin-left:auto;margin-right:auto" *ngIf="blog.title">
-    <ol class="breadcrumb">
+    <ol class="breadcrumb mb-0">
         <li class="breadcrumb-item"><a href="#" [routerLink]="['/']">Home</a></li>
         <li class="breadcrumb-item active"><a href="#" [routerLink]="['/blog']">Blog</a></li>
+        <li class="breadcrumb-item active">{{blog.title}}</li>
     </ol>
     <div class="jumbotron">
         <div class="col-md-12 text-right">
@@ -17,7 +18,9 @@
 
         <div class="card border-info mb-3">
             <div class="card-body">
-                <p class="card-text">by: <strong>{{blog.user.fullname}}</strong> on <strong>{{blog.createdAt | date:'EEEE LLLL dd, yyyy  h:mm a'}}</strong></p>
+                <p class="card-text">by: <strong><a
+                        [routerLink]="['/userprofile', blog.user._id]">{{blog.user.fullname}}</a></strong> on
+                    <strong>{{blog.createdAt | date:'EEEE LLLL dd, yyyy  h:mm a'}}</strong></p>
                 <div [innerHTML]="blog.body"></div>
             </div>
 
@@ -26,7 +29,8 @@
                     <a href="" [routerLink]="['/blog', blog.prevBlog._id]"><span (click)="navigate(blog.prevBlog._id)">&lt;&lt; {{blog.prevBlog.title}}</span></a>
                 </div>
                 <div class="float-right" *ngIf="blog.nextBlog._id">
-                    <a href="" [routerLink]="['/blog', blog.nextBlog._id]"><span (click)="navigate(blog.nextBlog._id)">{{blog.nextBlog.title}} &gt;&gt;</span></a>
+                    <a href="" [routerLink]="['/blog', blog.nextBlog._id]"><span
+                            (click)="navigate(blog.nextBlog._id)">{{blog.nextBlog.title}} &gt;&gt;</span></a>
                 </div>
             </div>
         </div>
