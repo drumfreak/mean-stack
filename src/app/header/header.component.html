@@ -1,45 +1,56 @@
 <header>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <a [routerLink]="['/']" class="navbar-brand logo"></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item"  [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
-          <a class="nav-link" href="#" [routerLink]="['/']">Home</a>
-        </li>
-        <li class="nav-item"  [routerLinkActive]="['active']">
-          <a class="nav-link" href="#" [routerLink]="['/blog']">Blog</a>
-        </li>
-        <li class="nav-item" [routerLinkActive]="['active']">
-          <a class="nav-link" href="#"  [routerLink]="['/weather']">Weather <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item" [routerLinkActive]="['active']">
-          <a class="nav-link" href="#"  [routerLink]="['/charts']">Charts</a>
-        </li>
-        <li class="nav-item" [routerLinkActive]="['active']">
-          <a class="nav-link" href="#"  [routerLink]="['/contact']">Contact</a>
-        </li>
-        <li class="nav-item" [routerLinkActive]="['active']">
-          <a class="nav-link"href="#"  [routerLink]="['/about']">About</a>
-        </li>
-      </ul>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a [routerLink]="['/']" class="navbar-brand logo"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}"
+                    data-toggle="collapse" data-target="#navbarSupportedContent">
+                    <a class="nav-link" href="#" [routerLink]="['/']">Home</a>
+                </li>
+                <li class="nav-item" [routerLinkActive]="['active']" data-toggle="collapse"
+                    data-target="#navbarSupportedContent">
+                    <a class="nav-link" href="#" [routerLink]="['/blog']">Blog</a>
+                </li>
+                <li class="nav-item" [routerLinkActive]="['active']" data-toggle="collapse"
+                    data-target="#navbarSupportedContent">
+                    <a class="nav-link" href="#" [routerLink]="['/weather']">Weather</a>
+                </li>
+                <li class="nav-item" [routerLinkActive]="['active']" data-toggle="collapse"
+                    data-target="#navbarSupportedContent">
+                    <a class="nav-link" href="#" [routerLink]="['/charts']">Charts</a>
+                </li>
+                <li class="nav-item" [routerLinkActive]="['active']" data-toggle="collapse"
+                    data-target="#navbarSupportedContent">
+                    <a class="nav-link" href="#" [routerLink]="['/contact']">Contact</a>
+                </li>
+                <li class="nav-item" [routerLinkActive]="['active']" data-toggle="collapse"
+                    data-target="#navbarSupportedContent">
+                    <a class="nav-link" href="#" [routerLink]="['/about']">About</a>
+                </li>
+            </ul>
 
-      <div class="dropdown show">
-        <a class="btn btn-primary dropdown-toggle" [routerLink]="['/auth/login']" *ngIf="!user" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Login</a>
-        <a class="btn btn-primary dropdown-toggle" *ngIf="user" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <mat-icon>account_circle</mat-icon>{{user.fullname}}
-        </a>
+            <div class="dropdown show">
+                <a class="btn btn-primary dropdown-toggle" [routerLink]="['/auth/login']" *ngIf="!user" href="#"
+                   role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                   aria-expanded="false">Login</a>
+                <a class="btn btn-primary dropdown-toggle" *ngIf="user" href="#" role="button" id="dropdownMenuLink2"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <mat-icon>account_circle</mat-icon>
+                    {{user.fullname}}
+                </a>
 
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-          <a class="dropdown-item" href="#" *ngIf="!user" [routerLink]="['/auth/register']">Register</a>
-          <a class="dropdown-item" href="#" *ngIf="user && user.isAdmin" [routerLink]="['/admin']">Admin</a>
-          <a class="dropdown-item" href="#" *ngIf="user" [routerLink]="['/userprofile', user._id]">Profile</a>
-          <a class="dropdown-item" href="#" *ngIf="user" (click)="logout()">Sign out</a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" href="#" *ngIf="!user" [routerLink]="['/auth/register']">Register</a>
+                    <a class="dropdown-item" href="#" *ngIf="user && user.isAdmin" [routerLink]="['/admin']">Admin</a>
+                    <a class="dropdown-item" href="#" *ngIf="user" [routerLink]="['/userprofile', user._id]">Profile</a>
+                    <a class="dropdown-item" href="#" *ngIf="user" (click)="logout()">Sign out</a>
+                </div>
+            </div>
+
         </div>
-      </div>
-
-    </div>
-  </nav>
+    </nav>
 </header>

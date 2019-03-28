@@ -62,9 +62,12 @@
                     <h5>Profile Image</h5>
                     <img *ngIf="!loading" id="profileImage" alt="User Profile Image" [src]="userProfile.profileImage"
                          style="width:200px"/><br/>
-                    <input type="file" id="photo" name="photo" ng2FileSelect [uploader]="uploader"/>
+                    <input class="mt-4" type="file" id="photo" name="photo" ng2FileSelect [uploader]="uploader"/>
                 </div>
                 <div class="form-group">
+                    <div class="progress" style="width:200px">
+                        <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+                    </div>
                     <button type="button" class="btn btn-success btn-s" (click)="uploader.uploadAll()"
                             [disabled]="!uploader.getNotUploadedItems().length">Upload Image
                     </button>
