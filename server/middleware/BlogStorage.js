@@ -1,33 +1,33 @@
 /* helpers/BlogStorage.js */
 
 // Load dependencies
-var _ = require('lodash');
-var fs = require('fs');
-var path = require('path');
-var Jimp = require('jimp');
-var crypto = require('crypto');
-var mkdirp = require('mkdirp');
-var concat = require('concat-stream');
-var streamifier = require('streamifier');
+const _ = require('lodash');
+const fs = require('fs');
+const path = require('path');
+const Jimp = require('jimp');
+const crypto = require('crypto');
+const mkdirp = require('mkdirp');
+const concat = require('concat-stream');
+const streamifier = require('streamifier');
 
 // Configure UPLOAD_PATH
 // process.env.BLOG_STORAGE contains uploads/avatars
-var UPLOAD_PATH = path.resolve(__dirname, '..', process.env.BLOG_STORAGE);
+const UPLOAD_PATH = path.resolve(__dirname, '..', process.env.BLOG_STORAGE);
 
 // create a multer storage engine
-var BlogStorage = function (options) {
+const BlogStorage = function (options) {
 
     // this serves as a constructor
     // this serves as a constructor
     function BlogStorage(opts) {
 
-        var baseUrl = process.env.BLOG_BASE_URL;
+        const baseUrl = process.env.BLOG_BASE_URL;
 
-        var allowedStorageSystems = ['local'];
-        var allowedOutputFormats = ['jpg', 'png'];
+        const allowedStorageSystems = ['local'];
+        const allowedOutputFormats = ['jpg', 'png'];
 
         // fallback for the options
-        var defaultOptions = {
+        const defaultOptions = {
             storage: 'local',
             output: 'png',
             greyscale: false,
@@ -38,7 +38,7 @@ var BlogStorage = function (options) {
         };
 
         // extend default options with passed options
-        var options = (opts && _.isObject(opts)) ? _.pick(opts, _.keys(defaultOptions)) : {};
+        let options = (opts && _.isObject(opts)) ? _.pick(opts, _.keys(defaultOptions)) : {};
         options = _.extend(defaultOptions, options);
 
         // check the options for correct values and use fallback value where necessary
@@ -82,7 +82,7 @@ var BlogStorage = function (options) {
         // set the upload base url
         this.uploadBaseUrl = this.options.responsive ? path.join(baseUrl, 'responsive') : baseUrl;
 
-        if (this.options.storage == 'local') {
+        if (this.options.storage === 'local') {
             // if upload path does not exist, create the upload path structure
             !fs.existsSync(this.uploadPath) && mkdirp.sync(this.uploadPath);
         }
@@ -92,10 +92,10 @@ var BlogStorage = function (options) {
     // this generates a random cryptographic filename
     BlogStorage.prototype._generateRandomFilename = function () {
         // create pseudo random bytes
-        var bytes = crypto.pseudoRandomBytes(32);
+        const bytes = crypto.pseudoRandomBytes(32);
 
         // create the md5 hash of the random bytes
-        var checksum = crypto.createHash('MD5').update(bytes).digest('hex');
+        const checksum = crypto.createHash('MD5').update(bytes).digest('hex');
 
         // return as filename the hash with the output extension
         return checksum + '.' + this.options.output;
@@ -105,10 +105,10 @@ var BlogStorage = function (options) {
     BlogStorage.prototype._createOutputStream = function (filepath, cb) {
 
         // create a reference for this to use in local functions
-        var that = this;
+        const that = this;
 
         // create a writable stream from the filepath
-        var output = fs.createWriteStream(filepath);
+        const output = fs.createWriteStream(filepath);
 
         // set callback fn as handler for the error event
         output.on('error', cb);
@@ -132,30 +132,30 @@ var BlogStorage = function (options) {
     BlogStorage.prototype._processImage = function (image, cb) {
 
         // create a reference for this to use in local functions
-        var that = this;
+        const that = this;
 
-        var batch = [];
+        let batch = [];
 
         // the responsive sizes
-        var sizes = ['lg', 'md', 'sm'];
+        const sizes = ['lg', 'md', 'sm'];
 
-        var filename = this._generateRandomFilename();
+        const filename = this._generateRandomFilename();
 
-        var mime = Jimp.MIME_PNG;
+        let mime = Jimp.MIME_PNG;
 
         // create a clone of the Jimp image
-        var clone = image.clone();
+        let clone = image.clone();
 
         // fetch the Jimp image dimensions
-        var width = clone.bitmap.width;
-        var height = clone.bitmap.height;
-        var square = Math.min(width, height);
-        var threshold = this.options.threshold;
+        const width = clone.bitmap.width;
+        const height = clone.bitmap.height;
+        let square = Math.min(width, height);
+        const threshold = this.options.threshold;
 
         // resolve the Jimp output mime type
         switch (this.options.output) {
             case 'jpg':
-                mime = Jimp.MIME_JPEG;
+                // mime = Jimp.MIME_JPEG;
                 break;
             case 'png':
             default:
@@ -165,7 +165,7 @@ var BlogStorage = function (options) {
 
         // auto scale the image dimensions to fit the threshold requirement
         if (threshold && square > threshold) {
-            clone = (square == width) ? clone.resize(threshold, Jimp.AUTO) : clone.resize(Jimp.AUTO, threshold);
+            clone = (square === width) ? clone.resize(threshold, Jimp.AUTO) : clone.resize(Jimp.AUTO, threshold);
         }
 
         // crop the image to a square if enabled
@@ -192,10 +192,10 @@ var BlogStorage = function (options) {
             // map through the responsive sizes and push them to the batch
             batch = _.map(sizes, function (size) {
 
-                var outputStream;
+                let outputStream;
 
-                var image = null;
-                var filepath = filename.split('.');
+                let image = null;
+                let filepath = filename.split('.');
 
                 // create the complete filepath and create a writable stream for it
                 filepath = filepath[0] + '_' + size + '.' + filepath[1];
@@ -236,7 +236,7 @@ var BlogStorage = function (options) {
         _.each(batch, function (current) {
             // get the buffer of the Jimp image using the output mime type
             current.image.getBuffer(mime, function (err, buffer) {
-                if (that.options.storage == 'local') {
+                if (that.options.storage === 'local') {
                     // create a read stream from the buffer and pipe it to the output stream
                     streamifier.createReadStream(buffer).pipe(current.stream);
                 }
@@ -249,12 +249,12 @@ var BlogStorage = function (options) {
     BlogStorage.prototype._handleFile = function (req, file, cb) {
 
         // create a reference for this to use in local functions
-        var that = this;
+        let that = this;
 
         // create a writable stream using concat-stream that will
         // concatenate all the buffers written to it and pass the
         // complete buffer to a callback fn
-        var fileManipulate = concat(function (imageData) {
+        let fileManipulate = concat(function (imageData) {
 
             // read the image buffer with Jimp
             // it returns a promise
@@ -274,10 +274,10 @@ var BlogStorage = function (options) {
     // multer requires this for destroying file
     BlogStorage.prototype._removeFile = function (req, file, cb) {
 
-        var matches, pathsplit;
-        var filename = file.filename;
-        var _path = path.join(this.uploadPath, filename);
-        var paths = [];
+        let matches, pathsplit;
+        let filename = file.filename;
+        let _path = path.join(this.uploadPath, filename);
+        let paths = [];
 
         // delete the file properties
         delete file.filename;
