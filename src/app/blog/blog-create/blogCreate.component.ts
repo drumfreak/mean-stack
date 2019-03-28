@@ -1,10 +1,10 @@
-import {Component, Input, OnInit, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
-import {Router, ActivatedRoute, ParamMap} from '@angular/router';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Router, ActivatedRoute  } from '@angular/router';
 
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { BlogService } from '../blog.service';
-import {FileUploader} from 'ng2-file-upload';
-import {AuthService} from '../../auth/auth.service';
+import { FileUploader } from 'ng2-file-upload';
+import { AuthService } from '../../auth/auth.service';
 const URL = '/api/blog/upload';
 
 @Component({
@@ -38,13 +38,13 @@ export class BlogCreateComponent implements OnInit {
         this.newBlog.title = '';
         this.newBlog.body = '';
         this.newBlog.caption = '';
-        this.loading = false;
+        this.loading = true;
         this.uploader = new FileUploader({
             url: URL, itemAlias: 'blogphoto',
             authToken: 'Bearer ' + this.authService.getToken()
         });
 
-        //override the onAfterAddingfile property of the uploader so it doesn't authenticate with //credentials.
+        // override the onAfterAddingfile property of the uploader so it doesn't authenticate with //credentials.
         this.uploader.onAfterAddingFile = (file) => {
             file.withCredentials = false;
         };
@@ -56,15 +56,26 @@ export class BlogCreateComponent implements OnInit {
             this.loading = true;
             let images = JSON.parse(response);
             if (images.images.length > 0) {
-                // console.log(images.images);
                 this.newBlog.blogImage = images.images[0];
-                // console.log('Profile Image', this.userProfile.profileImage);
                 setTimeout(() => {
                     this.ref.markForCheck();
                     this.loading = false;
                 }, 1000);
             }
         };
+
+        if(!this.user) {
+            this.authService.me();
+            setTimeout(() => {
+                this.user = (<any>window).user;
+                this.loading = false;
+                this.ref.markForCheck();
+            }, 1000);
+        } else {
+            this.loading = false;
+            this.ref.markForCheck();
+        }
+
     }
 
     onSubmit() {

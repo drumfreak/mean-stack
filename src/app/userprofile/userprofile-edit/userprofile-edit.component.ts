@@ -7,8 +7,7 @@ import {FileUploader} from 'ng2-file-upload';
 import {AuthService} from '../../auth/auth.service';
 import "rxjs/add/operator/do";
 import "rxjs/add/operator/map";
-
-const URL = 'http://localhost:4040/api/userprofile/upload';
+const URL = '/api/userprofile/upload';
 
 @Component({
     selector: 'app-userprofile-edit',
@@ -43,6 +42,7 @@ export class UserprofileEditComponent implements OnInit {
             authToken: 'Bearer ' + this.authService.getToken()
         });
 
+
         this.loading = true;
         this.submitted = false;
         const userId = this.route.snapshot.paramMap.get('id');
@@ -52,8 +52,8 @@ export class UserprofileEditComponent implements OnInit {
                 if (!this.userProfile.profileImage) {
                     this.userProfile.profileImage = '/assets/dummyUser.jpg';
                 }
-                this.ref.markForCheck();
                 this.loading = false;
+                this.ref.markForCheck();
             });
 
 
@@ -69,16 +69,26 @@ export class UserprofileEditComponent implements OnInit {
             this.loading = true;
             let images = JSON.parse(response);
             if (images.images.length > 0) {
-                // console.log(images.images);
                 this.userProfile.profileImage = images.images[0];
-                // console.log('Profile Image', this.userProfile.profileImage);
                 setTimeout(() => {
                     this.ref.markForCheck();
                     this.loading = false;
                 }, 1000);
             }
         };
-        this.loading = false;
+
+        if(!this.user) {
+            this.authService.me();
+            setTimeout(() => {
+                this.user = (<any>window).user;
+                this.loading = false;
+                this.ref.markForCheck();
+            }, 1000);
+        } else {
+            this.loading = false;
+            this.ref.markForCheck();
+        }
+
     }
 
     onCancel() {

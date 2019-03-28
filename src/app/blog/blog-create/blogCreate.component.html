@@ -2,7 +2,7 @@
     <li class="breadcrumb-item"><a href="#" [routerLink]="['/']">Home</a></li>
     <li class="breadcrumb-item active"><a href="#" [routerLink]="['/blog']">Blog</a></li>
 </ol>
-<div class="text-center" *ngIf="!loading && !user._id">
+<div class="text-center" *ngIf="!loading && !user">
     <p>Please <a [routerLink]="['/auth/login']">Login</a></p>
 </div>
 
